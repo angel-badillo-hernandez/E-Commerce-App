@@ -21,7 +21,7 @@ import { AuthContext } from '../provider/AuthProvider';
 
 // Better put your these secret keys in .env file
 const firebaseConfig = {
-  apiKey: 'AIzaSyCDaFq_rJYJjpYbnj9rWiM1m1NEW4WlPvQ',
+  apiKey: '',
   authDomain: '',
   databaseURL: '',
   projectId: '',
