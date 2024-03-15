@@ -21,7 +21,7 @@ import { AuthContext } from '../provider/AuthProvider';
 
 // Better put your these secret keys in .env file
 const firebaseConfig = {
-  apiKey: '',
+  apiKey: 'AIzaSyCDaFq_rJYJjpYbnj9rWiM1m1NEW4WlPvQ',
   authDomain: '',
   databaseURL: '',
   projectId: '',
@@ -40,11 +40,19 @@ const Auth = () => {
     <AuthStack.Navigator
       screenOptions={{
         headerShown: false,
-      }}
-    >
-      <AuthStack.Screen name="Login" component={Login} />
-      <AuthStack.Screen name="Register" component={Register} />
-      <AuthStack.Screen name="ForgetPassword" component={ForgetPassword} />
+      }}>
+      <AuthStack.Screen
+        name='Login'
+        component={Login}
+      />
+      <AuthStack.Screen
+        name='Register'
+        component={Register}
+      />
+      <AuthStack.Screen
+        name='ForgetPassword'
+        component={ForgetPassword}
+      />
     </AuthStack.Navigator>
   );
 };
@@ -55,10 +63,15 @@ const Main = () => {
     <MainStack.Navigator
       screenOptions={{
         headerShown: false,
-      }}
-    >
-      <MainStack.Screen name="MainTabs" component={MainTabs} />
-      <MainStack.Screen name="SecondScreen" component={SecondScreen} />
+      }}>
+      <MainStack.Screen
+        name='MainTabs'
+        component={MainTabs}
+      />
+      <MainStack.Screen
+        name='SecondScreen'
+        component={SecondScreen}
+      />
     </MainStack.Navigator>
   );
 };
@@ -74,32 +87,59 @@ const MainTabs = () => {
           borderTopColor: isDarkmode ? themeColor.dark100 : '#c0c0c0',
           backgroundColor: isDarkmode ? themeColor.dark200 : '#ffffff',
         },
-      }}
-    >
+      }}>
       {/* these icons using Ionicons */}
       <Tabs.Screen
-        name="Home"
+        name='Home'
         component={Home}
         options={{
-          tabBarLabel: ({ focused }) => <TabBarText focused={focused} title="Home" />,
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} icon={'md-home'} />,
+          tabBarLabel: ({ focused }) => (
+            <TabBarText
+              focused={focused}
+              title='Home'
+            />
+          ),
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              focused={focused}
+              icon={'md-home'}
+            />
+          ),
         }}
       />
       <Tabs.Screen
-        name="Profile"
+        name='Profile'
         component={Profile}
         options={{
-          tabBarLabel: ({ focused }) => <TabBarText focused={focused} title="Profile" />,
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} icon={'person'} />,
+          tabBarLabel: ({ focused }) => (
+            <TabBarText
+              focused={focused}
+              title='Profile'
+            />
+          ),
+          tabBarIcon: ({ focused }) => (
+            <TabBarIcon
+              focused={focused}
+              icon={'person'}
+            />
+          ),
         }}
       />
       <Tabs.Screen
-        name="About"
+        name='About'
         component={About}
         options={{
-          tabBarLabel: ({ focused }) => <TabBarText focused={focused} title="About" />,
+          tabBarLabel: ({ focused }) => (
+            <TabBarText
+              focused={focused}
+              title='About'
+            />
+          ),
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon={'ios-information-circle'} />
+            <TabBarIcon
+              focused={focused}
+              icon={'ios-information-circle'}
+            />
           ),
         }}
       />
