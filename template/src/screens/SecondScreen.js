@@ -1,13 +1,7 @@
-import React from "react";
-import { View } from "react-native";
-import {
-  Layout,
-  TopNav,
-  Text,
-  themeColor,
-  useTheme,
-} from "react-native-rapi-ui";
-import { Ionicons } from "@expo/vector-icons";
+import React from 'react';
+import { View } from 'react-native';
+import { Layout, TopNav, Text, themeColor, useTheme } from 'react-native-rapi-ui';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function ({ navigation }) {
   const { isDarkmode } = useTheme();
@@ -27,8 +21,8 @@ export default function ({ navigation }) {
       <View
         style={{
           flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         {/* This text using ubuntu font */}

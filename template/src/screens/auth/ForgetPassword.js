@@ -1,25 +1,12 @@
-import React, { useState } from "react";
-import {
-  ScrollView,
-  TouchableOpacity,
-  View,
-  KeyboardAvoidingView,
-  Image,
-} from "react-native";
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
-import {
-  Layout,
-  Text,
-  TextInput,
-  Button,
-  useTheme,
-  themeColor,
-} from "react-native-rapi-ui";
+import React, { useState } from 'react';
+import { ScrollView, TouchableOpacity, View, KeyboardAvoidingView, Image } from 'react-native';
+import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import { Layout, Text, TextInput, Button, useTheme, themeColor } from 'react-native-rapi-ui';
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
   const auth = getAuth();
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
 
   async function forget() {
@@ -27,8 +14,8 @@ export default function ({ navigation }) {
     await sendPasswordResetEmail(auth, email)
       .then(function () {
         setLoading(false);
-        navigation.navigate("Login");
-        alert("Your password reset has been sent to your email");
+        navigation.navigate('Login');
+        alert('Your password reset has been sent to your email');
       })
       .catch(function (error) {
         setLoading(false);
@@ -46,9 +33,9 @@ export default function ({ navigation }) {
           <View
             style={{
               flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: isDarkmode ? "#17171E" : themeColor.white100,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: isDarkmode ? '#17171E' : themeColor.white100,
             }}
           >
             <Image
@@ -57,7 +44,7 @@ export default function ({ navigation }) {
                 height: 220,
                 width: 220,
               }}
-              source={require("../../../assets/forget.png")}
+              source={require('../../../assets/forget.png')}
             />
           </View>
           <View
@@ -72,7 +59,7 @@ export default function ({ navigation }) {
               size="h3"
               fontWeight="bold"
               style={{
-                alignSelf: "center",
+                alignSelf: 'center',
                 padding: 30,
               }}
             >
@@ -90,7 +77,7 @@ export default function ({ navigation }) {
               onChangeText={(text) => setEmail(text)}
             />
             <Button
-              text={loading ? "Loading" : "Send email"}
+              text={loading ? 'Loading' : 'Send email'}
               onPress={() => {
                 forget();
               }}
@@ -102,16 +89,16 @@ export default function ({ navigation }) {
 
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
+                flexDirection: 'row',
+                alignItems: 'center',
                 marginTop: 15,
-                justifyContent: "center",
+                justifyContent: 'center',
               }}
             >
               <Text size="md">Already have an account?</Text>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("Login");
+                  navigation.navigate('Login');
                 }}
               >
                 <Text
@@ -127,15 +114,15 @@ export default function ({ navigation }) {
             </View>
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
+                flexDirection: 'row',
+                alignItems: 'center',
                 marginTop: 30,
-                justifyContent: "center",
+                justifyContent: 'center',
               }}
             >
               <TouchableOpacity
                 onPress={() => {
-                  isDarkmode ? setTheme("light") : setTheme("dark");
+                  isDarkmode ? setTheme('light') : setTheme('dark');
                 }}
               >
                 <Text
@@ -145,7 +132,7 @@ export default function ({ navigation }) {
                     marginLeft: 5,
                   }}
                 >
-                  {isDarkmode ? "☀️ light theme" : "🌑 dark theme"}
+                  {isDarkmode ? '☀️ light theme' : '🌑 dark theme'}
                 </Text>
               </TouchableOpacity>
             </View>

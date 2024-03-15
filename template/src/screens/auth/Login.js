@@ -1,33 +1,18 @@
-import React, { useState } from "react";
-import {
-  ScrollView,
-  TouchableOpacity,
-  View,
-  KeyboardAvoidingView,
-  Image,
-} from "react-native";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import {
-  Layout,
-  Text,
-  TextInput,
-  Button,
-  useTheme,
-  themeColor,
-} from "react-native-rapi-ui";
+import React, { useState } from 'react';
+import { ScrollView, TouchableOpacity, View, KeyboardAvoidingView, Image } from 'react-native';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { Layout, Text, TextInput, Button, useTheme, themeColor } from 'react-native-rapi-ui';
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
   const auth = getAuth();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
   async function login() {
     setLoading(true);
-    await signInWithEmailAndPassword(auth, email, password).catch(function (
-      error
-    ) {
+    await signInWithEmailAndPassword(auth, email, password).catch(function (error) {
       // Handle Errors here.
       var errorCode = error.code;
       var errorMessage = error.message;
@@ -48,9 +33,9 @@ export default function ({ navigation }) {
           <View
             style={{
               flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              backgroundColor: isDarkmode ? "#17171E" : themeColor.white100,
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: isDarkmode ? '#17171E' : themeColor.white100,
             }}
           >
             <Image
@@ -59,7 +44,7 @@ export default function ({ navigation }) {
                 height: 220,
                 width: 220,
               }}
-              source={require("../../../assets/login.png")}
+              source={require('../../../assets/login.png')}
             />
           </View>
           <View
@@ -73,7 +58,7 @@ export default function ({ navigation }) {
             <Text
               fontWeight="bold"
               style={{
-                alignSelf: "center",
+                alignSelf: 'center',
                 padding: 30,
               }}
               size="h3"
@@ -104,7 +89,7 @@ export default function ({ navigation }) {
               onChangeText={(text) => setPassword(text)}
             />
             <Button
-              text={loading ? "Loading" : "Continue"}
+              text={loading ? 'Loading' : 'Continue'}
               onPress={() => {
                 login();
               }}
@@ -116,16 +101,16 @@ export default function ({ navigation }) {
 
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
+                flexDirection: 'row',
+                alignItems: 'center',
                 marginTop: 15,
-                justifyContent: "center",
+                justifyContent: 'center',
               }}
             >
               <Text size="md">Don't have an account?</Text>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("Register");
+                  navigation.navigate('Register');
                 }}
               >
                 <Text
@@ -141,15 +126,15 @@ export default function ({ navigation }) {
             </View>
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
+                flexDirection: 'row',
+                alignItems: 'center',
                 marginTop: 10,
-                justifyContent: "center",
+                justifyContent: 'center',
               }}
             >
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate("ForgetPassword");
+                  navigation.navigate('ForgetPassword');
                 }}
               >
                 <Text size="md" fontWeight="bold">
@@ -159,15 +144,15 @@ export default function ({ navigation }) {
             </View>
             <View
               style={{
-                flexDirection: "row",
-                alignItems: "center",
+                flexDirection: 'row',
+                alignItems: 'center',
                 marginTop: 30,
-                justifyContent: "center",
+                justifyContent: 'center',
               }}
             >
               <TouchableOpacity
                 onPress={() => {
-                  isDarkmode ? setTheme("light") : setTheme("dark");
+                  isDarkmode ? setTheme('light') : setTheme('dark');
                 }}
               >
                 <Text
@@ -177,7 +162,7 @@ export default function ({ navigation }) {
                     marginLeft: 5,
                   }}
                 >
-                  {isDarkmode ? "☀️ light theme" : "🌑 dark theme"}
+                  {isDarkmode ? '☀️ light theme' : '🌑 dark theme'}
                 </Text>
               </TouchableOpacity>
             </View>

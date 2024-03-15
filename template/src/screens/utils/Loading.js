@@ -1,6 +1,6 @@
-import React from "react";
-import { View, ActivityIndicator } from "react-native";
-import { Layout, themeColor } from "react-native-rapi-ui";
+import React from 'react';
+import { View, ActivityIndicator } from 'react-native';
+import { Layout, themeColor } from 'react-native-rapi-ui';
 
 export default function ({ navigation }) {
   return (
@@ -8,8 +8,8 @@ export default function ({ navigation }) {
       <View
         style={{
           flex: 1,
-          alignItems: "center",
-          justifyContent: "center",
+          alignItems: 'center',
+          justifyContent: 'center',
         }}
       >
         {/* This text using ubuntu font */}

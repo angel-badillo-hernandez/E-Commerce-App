@@ -1,33 +1,33 @@
-import React, { useContext } from "react";
-import { initializeApp, getApps } from "firebase/app";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React, { useContext } from 'react';
+import { initializeApp, getApps } from 'firebase/app';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { useTheme, themeColor } from "react-native-rapi-ui";
-import TabBarIcon from "../components/utils/TabBarIcon";
-import TabBarText from "../components/utils/TabBarText";
+import { useTheme, themeColor } from 'react-native-rapi-ui';
+import TabBarIcon from '../components/utils/TabBarIcon';
+import TabBarText from '../components/utils/TabBarText';
 //Screens
-import Home from "../screens/Home";
-import SecondScreen from "../screens/SecondScreen";
-import About from "../screens/About";
-import Profile from "../screens/Profile";
-import Loading from "../screens/utils/Loading";
+import Home from '../screens/Home';
+import SecondScreen from '../screens/SecondScreen';
+import About from '../screens/About';
+import Profile from '../screens/Profile';
+import Loading from '../screens/utils/Loading';
 // Auth screens
-import Login from "../screens/auth/Login";
-import Register from "../screens/auth/Register";
-import ForgetPassword from "../screens/auth/ForgetPassword";
-import { AuthContext } from "../provider/AuthProvider";
+import Login from '../screens/auth/Login';
+import Register from '../screens/auth/Register';
+import ForgetPassword from '../screens/auth/ForgetPassword';
+import { AuthContext } from '../provider/AuthProvider';
 
 // Better put your these secret keys in .env file
 const firebaseConfig = {
-  apiKey: "",
-  authDomain: "",
-  databaseURL: "",
-  projectId: "",
-  storageBucket: "",
-  messagingSenderId: "",
-  appId: "",
+  apiKey: 'AIzaSyCDaFq_rJYJjpYbnj9rWiM1m1NEW4WlPvQ',
+  authDomain: '',
+  databaseURL: '',
+  projectId: '',
+  storageBucket: '',
+  messagingSenderId: '',
+  appId: '',
 };
 
 if (getApps().length === 0) {
@@ -71,8 +71,8 @@ const MainTabs = () => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          borderTopColor: isDarkmode ? themeColor.dark100 : "#c0c0c0",
-          backgroundColor: isDarkmode ? themeColor.dark200 : "#ffffff",
+          borderTopColor: isDarkmode ? themeColor.dark100 : '#c0c0c0',
+          backgroundColor: isDarkmode ? themeColor.dark200 : '#ffffff',
         },
       }}
     >
@@ -81,35 +81,25 @@ const MainTabs = () => {
         name="Home"
         component={Home}
         options={{
-          tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="Home" />
-          ),
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon={"md-home"} />
-          ),
+          tabBarLabel: ({ focused }) => <TabBarText focused={focused} title="Home" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} icon={'md-home'} />,
         }}
       />
       <Tabs.Screen
         name="Profile"
         component={Profile}
         options={{
-          tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="Profile" />
-          ),
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon={"person"} />
-          ),
+          tabBarLabel: ({ focused }) => <TabBarText focused={focused} title="Profile" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} icon={'person'} />,
         }}
       />
       <Tabs.Screen
         name="About"
         component={About}
         options={{
-          tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="About" />
-          ),
+          tabBarLabel: ({ focused }) => <TabBarText focused={focused} title="About" />,
           tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon={"ios-information-circle"} />
+            <TabBarIcon focused={focused} icon={'ios-information-circle'} />
           ),
         }}
       />
