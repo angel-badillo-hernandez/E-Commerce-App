@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import { ScrollView, TouchableOpacity, View, KeyboardAvoidingView, Image } from 'react-native';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Layout, Text, TextInput, Button, useTheme, themeColor } from 'react-native-rapi-ui';
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
-  const auth = getAuth();
+  // const auth = getAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  async function login() {
-    setLoading(true);
-    await signInWithEmailAndPassword(auth, email, password).catch(function (error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-      setLoading(false);
-      alert(errorMessage);
-    });
-  }
+  // async function register() {
+  //   setLoading(true);
+  //   await createUserWithEmailAndPassword(auth, email, password).catch(function (
+  //     error
+  //   ) {
+  //     // Handle Errors here.
+  //     var errorCode = error.code;
+  //     var errorMessage = error.message;
+  //     // ...
+  //     setLoading(false);
+  //     alert(errorMessage);
+  //   });
+  // }
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
@@ -44,7 +46,7 @@ export default function ({ navigation }) {
                 height: 220,
                 width: 220,
               }}
-              source={require('../../../assets/login.png')}
+              source={require('../../../assets/register.png')}
             />
           </View>
           <View
@@ -57,13 +59,13 @@ export default function ({ navigation }) {
           >
             <Text
               fontWeight="bold"
+              size="h3"
               style={{
                 alignSelf: 'center',
                 padding: 30,
               }}
-              size="h3"
             >
-              Login
+              Register
             </Text>
             <Text>Email</Text>
             <TextInput
@@ -89,9 +91,9 @@ export default function ({ navigation }) {
               onChangeText={(text) => setPassword(text)}
             />
             <Button
-              text={loading ? 'Loading' : 'Continue'}
+              text={loading ? 'Loading' : 'Create an account'}
               onPress={() => {
-                login();
+                // register();
               }}
               style={{
                 marginTop: 20,
@@ -107,10 +109,10 @@ export default function ({ navigation }) {
                 justifyContent: 'center',
               }}
             >
-              <Text size="md">Don't have an account?</Text>
+              <Text size="md">Already have an account?</Text>
               <TouchableOpacity
                 onPress={() => {
-                  navigation.navigate('Register');
+                  navigation.navigate('Login');
                 }}
               >
                 <Text
@@ -120,25 +122,7 @@ export default function ({ navigation }) {
                     marginLeft: 5,
                   }}
                 >
-                  Register here
-                </Text>
-              </TouchableOpacity>
-            </View>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                marginTop: 10,
-                justifyContent: 'center',
-              }}
-            >
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('ForgetPassword');
-                }}
-              >
-                <Text size="md" fontWeight="bold">
-                  Forget password
+                  Login here
                 </Text>
               </TouchableOpacity>
             </View>

@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import { ScrollView, TouchableOpacity, View, KeyboardAvoidingView, Image } from 'react-native';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+// import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Layout, Text, TextInput, Button, useTheme, themeColor } from 'react-native-rapi-ui';
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
-  const auth = getAuth();
+  // const auth = getAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  async function login() {
-    setLoading(true);
-    await signInWithEmailAndPassword(auth, email, password).catch(function (error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-      setLoading(false);
-      alert(errorMessage);
-    });
-  }
+  // async function login() {
+  //   setLoading(true);
+  //   await signInWithEmailAndPassword(auth, email, password).catch(function (
+  //     error
+  //   ) {
+  //     // Handle Errors here.
+  //     var errorCode = error.code;
+  //     var errorMessage = error.message;
+  //     // ...
+  //     setLoading(false);
+  //     alert(errorMessage);
+  //   });
+  // }
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
@@ -91,7 +93,7 @@ export default function ({ navigation }) {
             <Button
               text={loading ? 'Loading' : 'Continue'}
               onPress={() => {
-                login();
+                // login();
               }}
               style={{
                 marginTop: 20,

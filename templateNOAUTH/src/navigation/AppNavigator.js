@@ -1,16 +1,20 @@
-import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-import { themeColor, useTheme } from "react-native-rapi-ui";
-import TabBarIcon from "../components/utils/TabBarIcon";
-import TabBarText from "../components/utils/TabBarText";
+import { themeColor, useTheme } from 'react-native-rapi-ui';
+import TabBarIcon from '../components/utils/TabBarIcon';
+import TabBarText from '../components/utils/TabBarText';
 
-import Home from "../screens/Home";
-import SecondScreen from "../screens/SecondScreen";
-import About from "../screens/About";
-import Profile from "../screens/Profile";
+import Home from '../screens/Home';
+import SecondScreen from '../screens/SecondScreen';
+import About from '../screens/About';
+import Profile from '../screens/Profile';
+
+import Login from '../screens/auth/Login';
+import Register from '../screens/auth/Register';
+import ForgetPassword from '../screens/auth/ForgetPassword';
 
 const MainStack = createNativeStackNavigator();
 const Main = () => {
@@ -20,8 +24,11 @@ const Main = () => {
         headerShown: false,
       }}
     >
-      <MainStack.Screen name="MainTabs" component={MainTabs} />
-      <MainStack.Screen name="SecondScreen" component={SecondScreen} />
+      <MainStack.Screen name="Home" component={Home} />
+      <MainStack.Screen name="Search" component={SecondScreen} />
+      <MainStack.Screen name="Login" component={Login} />
+      <MainStack.Screen name="Register" component={Register} />
+      <MainStack.Screen name="ForgetPassword" component={ForgetPassword} />
     </MainStack.Navigator>
   );
 };
@@ -34,46 +41,34 @@ const MainTabs = () => {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          borderTopColor: isDarkmode ? themeColor.dark100 : "#c0c0c0",
-          backgroundColor: isDarkmode ? themeColor.dark200 : "#ffffff",
+          borderTopColor: isDarkmode ? themeColor.dark100 : '#c0c0c0',
+          backgroundColor: isDarkmode ? themeColor.dark200 : '#ffffff',
         },
       }}
     >
       {/* these icons using Ionicons */}
       <Tabs.Screen
         name="Home"
-        component={Home}
+        component={Main}
         options={{
-          tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="Home" />
-          ),
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon={"home"} />
-          ),
+          tabBarLabel: ({ focused }) => <TabBarText focused={focused} title="Home" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} icon={'home'} />,
         }}
       />
       <Tabs.Screen
         name="Profile"
         component={Profile}
         options={{
-          tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="Profile" />
-          ),
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon={"person"} />
-          ),
+          tabBarLabel: ({ focused }) => <TabBarText focused={focused} title="Profile" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} icon={'person'} />,
         }}
       />
       <Tabs.Screen
         name="About"
         component={About}
         options={{
-          tabBarLabel: ({ focused }) => (
-            <TabBarText focused={focused} title="About" />
-          ),
-          tabBarIcon: ({ focused }) => (
-            <TabBarIcon focused={focused} icon={"information-circle"} />
-          ),
+          tabBarLabel: ({ focused }) => <TabBarText focused={focused} title="About" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} icon={'information-circle'} />,
         }}
       />
     </Tabs.Navigator>
@@ -83,7 +78,7 @@ const MainTabs = () => {
 export default () => {
   return (
     <NavigationContainer>
-      <Main />
+      <MainTabs />
     </NavigationContainer>
   );
 };
