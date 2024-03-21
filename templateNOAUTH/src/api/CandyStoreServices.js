@@ -66,7 +66,7 @@ async function post_candy(candy_info) {
         const status = response.status;
         const success = status == 200;
         console.log(candy_info);
-        if (false) {
+        if (!success) {
             throw new Error(`${status} Operation Failed.`);
         }
         return response.json();
