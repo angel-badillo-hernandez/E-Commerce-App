@@ -66,6 +66,7 @@ async function post_candy(candy_info) {
         const status = response.status;
         const success = status == 200;
         console.log(candy_info);
+        console.log(await response.json());
         if (!success) {
             throw new Error(`${status} Operation Failed.`);
         }
@@ -77,9 +78,11 @@ async function post_candy(candy_info) {
 }
 
 const main = async ()=>{
-    let data = await search_candies({max_price: 0});
+    let data = await search_candies({id: 42688339869883});
     console.log(data);
 
+    data = await post_candy({id: 12345, name: "Test", prod_url: "Stuff", img_url: "Stuff", price: 10.0, desc: "Hello here", category: "New", category_id: 123456})
+    console.log(data);
 }
 
 main();
