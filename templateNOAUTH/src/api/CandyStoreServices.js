@@ -80,8 +80,6 @@ const main = async ()=>{
     let data = await search_candies({max_price: 0});
     console.log(data);
 
-    data = await post_candy({id: 12345678, name: "Google", category: "Epic", category_id: 123456, prod_url: "None", img_url: "None", desc: "None", price: 1.0});
-    console.log(data);
 }
 
 main();
