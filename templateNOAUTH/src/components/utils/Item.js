@@ -2,7 +2,7 @@ import React from "react";
 import { themeColor, useTheme, Section, SectionContent, SectionImage } from "react-native-rapi-ui";
 import { Ionicons } from "@expo/vector-icons";
 
-export function CandyItem(props, candy_info) {
+export function Item(props, item_info) {
     const { IsDarkMode } = useTheme();
     return (<Section>
 
@@ -16,7 +16,7 @@ export function CandyItem(props, candy_info) {
                     : "rgb(143, 155, 179)",
                 fontSize: 10,
             }}>
-            {candy_info.id}
+            {item_info.id}
         </Text>
         <Text fontWeight="bold" // Name
             style={{
@@ -28,9 +28,9 @@ export function CandyItem(props, candy_info) {
                     : "rgb(143, 155, 179)",
                 fontSize: 10,
             }}>
-            {candy_info.name}
+            {item_info.name}
         </Text>
-        <SectionImage source={{ uri: candy_info.img_url }} // Image
+        <SectionImage source={{ uri: item_info.img_url }} // Image
             style={{ width: 200, height: 200 }} // Specify dimensions} 
         />
         <SectionContent>
@@ -44,7 +44,7 @@ export function CandyItem(props, candy_info) {
                         : "rgb(143, 155, 179)",
                     fontSize: 10,
                 }}>
-                {candy_info.desc}
+                {item_info.desc}
             </Text>
             <Text fontWeight="bold" // Price
                 style={{
@@ -56,7 +56,7 @@ export function CandyItem(props, candy_info) {
                         : "rgb(143, 155, 179)",
                     fontSize: 10,
                 }}>
-                {candy_info.price}
+                {item_info.price}
             </Text>
             <Text fontWeight="bold"
                 style={{
@@ -68,7 +68,7 @@ export function CandyItem(props, candy_info) {
                         : "rgb(143, 155, 179)",
                     fontSize: 10,
                 }}>
-                {candy_info.prod_url}
+                {item_info.prod_url}
             </Text>
         </SectionContent>
     </Section>);

@@ -1,9 +1,9 @@
 /**
  * Contains functions for performing API calls and
- * and retreiving data for the candy store app.
+ * and retreiving data for the Awesome Store app.
  */
 
-const api_url = "https://thehonoredone.live:8084/";
+const api_url = "https://thehonoredone.live:8085/";
 
 /**
  * Calls route for getting all categories.
@@ -30,12 +30,12 @@ async function get_categories() {
 
 /**
  * Calls route for searching candies.
- * @param {*} candy_info An object containing query params
+ * @param {*} item_info An object containing query params
  * corresponding to the /candies route.
  * @returns An array of candies.
  */
-async function search_candies(candy_info = {}) {
-    let path = "candies?" + new URLSearchParams(candy_info);
+async function search_items(item_info = {}) {
+    let path = "items?" + new URLSearchParams(item_info);
     let candies = [];
 
     try {
@@ -56,16 +56,16 @@ async function search_candies(candy_info = {}) {
 
 /**
  * Calls route for posting candy.
- * @param {*} candy_info An object representing a candy.
+ * @param {*} item_info An object representing a candy.
  */
-async function post_candy(candy_info) {
-    let path = "candies?";
+async function post_item(item_info = {}) {
+    let path = "items";
 
     try {
-        const response = await fetch(api_url + path, { method: "POST", body: JSON.stringify(candy_info)});
+        const response = await fetch(api_url + path, { method: "POST", body: JSON.stringify(item_info) });
         const status = response.status;
         const success = status == 200;
-        console.log(candy_info);
+        console.log(item_info);
         console.log(await response.json());
         if (!success) {
             throw new Error(`${status} Operation Failed.`);
@@ -77,11 +77,11 @@ async function post_candy(candy_info) {
     }
 }
 
-const main = async ()=>{
-    let data = await search_candies({id: 42688339869883});
+const main = async () => {
+    let data = await search_items({ id: 42688339869883 });
     console.log(data);
 
-    data = await post_candy({id: 12345, name: "Test", prod_url: "Stuff", img_url: "Stuff", price: 10.0, desc: "Hello here", category: "New", category_id: 123456})
+    data = await post_item({ id: 12345, name: "Test", prod_url: "Stuff", img_url: "Stuff", price: 10.0, desc: "Hello here", category: "New", category_id: 123456 })
     console.log(data);
 }
 
