@@ -24,7 +24,7 @@ const Main = () => {
         headerShown: false,
       }}
     >
-      <MainStack.Screen name="Home" component={Home} />
+      <MainStack.Screen name="Welcome" component={Home} />
       <MainStack.Screen name="Search" component={SecondScreen} />
       <MainStack.Screen name="Login" component={Login} />
       <MainStack.Screen name="Register" component={Register} />
