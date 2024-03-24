@@ -16,7 +16,7 @@ export function Item(props, item_info) {
                     : "rgb(143, 155, 179)",
                 fontSize: 10,
             }}>
-            {item_info.id}
+            {item_info._id}
         </Text>
         <Text fontWeight="bold" // Name
             style={{
