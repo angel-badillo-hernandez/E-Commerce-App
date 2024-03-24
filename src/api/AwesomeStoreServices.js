@@ -9,7 +9,7 @@ const api_url = "https://thehonoredone.live:8085/";
  * Calls route for getting all categories.
  * @returns An array of categories.
  */
-async function get_categories() {
+export async function get_categories() {
     let path = "categories";
     let categories = [];
     try {
@@ -40,7 +40,7 @@ async function get_categories() {
  * @param {number} limit Number of matching items to return
  * @returns An array of items.
  */
-async function search_items({ id, name, prod_url, img_url, price, desc, category, skip, limit } = {}) {
+export async function search_items({ id, name, prod_url, img_url, price, desc, category, skip, limit } = {}) {
     const query_params = {}
 
     if (id !== null && id !== undefined)
@@ -93,9 +93,10 @@ async function search_items({ id, name, prod_url, img_url, price, desc, category
 
 /**
  * Calls route for posting item.
- * @param {*} item An object representing a item.
+ * @param {object} item An object representing a item.
+ * @returns JSON information with operation results.
  */
-async function post_item(item = {}) {
+export async function post_item(item = {}) {
     let path = "items";
 
     try {
@@ -118,10 +119,12 @@ async function post_item(item = {}) {
 }
 
 /**
- * Calls route for putting /updating item.
- * @param {*} item An object representing a item.
+ * Calls route for putting / updating item.
+ * @param {string} id Item ID
+ * @param {object} item An object representing a item.
+ * @returns JSON information with operation results.
  */
-async function put_item(id, item = {}) {
+export async function put_item(id, item = {}) {
     let path = "items/id/" + id;
 
     try {
@@ -144,11 +147,11 @@ async function put_item(id, item = {}) {
 }
 
 /**
- * 
- * @param {*} id 
- * @returns 
+ * Delete an item from the database.
+ * @param {string} id Item ID
+ * @returns JSON info with results.
  */
-async function delete_item(id) {
+export async function delete_item(id) {
     let path = "items/id/" + id;
 
     try {
@@ -170,27 +173,27 @@ async function delete_item(id) {
     }
 }
 
-const main = async () => {
+// const main = async () => {
 
-    let data = await get_categories();
-    console.log("GET /categories")
-    console.log(data);
+//     let data = await get_categories();
+//     console.log("GET /categories")
+//     console.log(data);
 
-    data = await search_items({ category: "Soft Candy", limit: 1 });
-    console.log("GET /items")
-    console.log(data);
+//     data = await search_items({ category: "Soft Candy", limit: 1 });
+//     console.log("GET /items")
+//     console.log(data);
 
-    data = await post_item({ name: "Test", prod_url: "Stuff", img_url: "Stuff", price: 10.0, desc: "Hello here", category: "Fortnite" })
-    console.log("POST /items")
-    console.log(data);
+//     data = await post_item({ name: "Test", prod_url: "Stuff", img_url: "Stuff", price: 10.0, desc: "Hello here", category: "Fortnite" })
+//     console.log("POST /items")
+//     console.log(data);
 
-    data = await put_item("65ff48a4aa724129f8404a1b", { name: "Test", prod_url: "Stuff", img_url: "Stuff", price: 10.0, desc: "Hello here", category: "New", category_id: "Fortnite" })
-    console.log("PUT /items/id")
-    console.log(data);
+//     data = await put_item("65ff48a4aa724129f8404a1b", { name: "Test", prod_url: "Stuff", img_url: "Stuff", price: 10.0, desc: "Hello here", category: "New", category_id: "Fortnite" })
+//     console.log("PUT /items/id")
+//     console.log(data);
 
-    data = await delete_item("65ff48a4aa724129f8404a1b")
-    console.log("DELETE /items")
-    console.log(data);
-}
+//     data = await delete_item("65ff48a4aa724129f8404a1b")
+//     console.log("DELETE /items")
+//     console.log(data);
+// }
 
-main();
+// main();
