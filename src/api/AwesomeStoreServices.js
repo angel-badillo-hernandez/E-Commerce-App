@@ -302,7 +302,7 @@ export async function item_by_id(id) {
     const success = status == 200;
 
     if (!success) {
-        throw new Error(`${status} Error getting items.`);
+        throw new Error(`${status} Error getting item.`);
     }
 
     // Return item
@@ -324,7 +324,7 @@ export async function image_by_id(id) {
     const success = status == 200;
 
     if (!success) {
-        throw new Error(`${status} Error getting items.`);
+        throw new Error(`${status} Error getting image.`);
     }
 
     // Return image as blob
