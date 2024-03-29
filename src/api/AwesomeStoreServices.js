@@ -6,8 +6,70 @@
 const api_url = "https://thehonoredone.live:8085/";
 
 /**
+ * Represents an the information of an Item to be posted.
+ */
+export class ItemInfo {
+    /**
+     * Creates a new instance of PostItem.
+     * @param {string} name 
+     * @param {string} prod_url
+     * @param {string} img_url
+     * @param {string} desc 
+     * @param {number} price 
+     * @param {string} category 
+     * @param {Array<string} tags 
+     */
+    constructor(name, prod_url, img_url, desc, price, category, tags) {
+        this.name = name;
+        this.img_url = img_url;
+        this.prod_url = prod_url;
+        this.desc = desc;
+        this.price = price;
+        this.category = category;
+        this.tags = tags;
+    }
+}
+
+/**
+ * Represents an Item from the API call response. Includes ItemInfo as well 
+ * as the ID of the item.
+ */
+export class Item extends ItemInfo {
+    /**
+     * Creates a new instance of Item.
+     * @param {string} id Item ID
+     * @param {string} name Item Name
+     * @param {string} prod_url Item product url
+     * @param {string} img_url Item image url
+     * @param {string} desc Item description
+     * @param {number} price Item price
+     * @param {string} category Item category
+     * @param {Array<string>} tags Item tags
+     */
+    constructor(id, name, prod_url, img_url, desc, price, category, tags) {
+        super(name, prod_url, img_url, desc, price, category, tags);
+        this.id = id;
+    }
+}
+
+/**
+ * Represents the login or registration response for the Awesome Store API Login / Registration route.
+ */
+export class AuthResponse {
+    /**
+     * Creates a new instance of AuthResponse.
+     * @param {boolean} success True if login / registration was successful. False otherwise.
+     * @param {string} detail Message describing the result.
+     */
+    constructor(success, detail) {
+        this.success = success;
+        this.detail = detail;
+    }
+}
+
+/**
  * Calls route for getting all categories.
- * @returns An array of categories.
+ * @returns {Promise<Array<string>>} An array of categories.
  */
 export async function get_categories() {
     const path = "categories";
@@ -27,47 +89,44 @@ export async function get_categories() {
 }
 
 /**
- * Performs a search using the given parameters, and returns the matching items.
- * @param {string} id Item ID
- * @param {string} name Item Name
- * @param {string} prod_url URL for the item
- * @param {string} img_url URL for the item's image
- * @param {number} price Item price
- * @param {string} desc Item description
- * @param {number} skip Number of items to skip
- * @param {number} limit Number of matching items to return
- * @returns An array of items.
+ * Calls Awesome Store API route for performing a search.
+ * @param {object} param0 Any combination of "named" parameters, including no
+ * parameters.
+ * @returns {Promise<Array<Item>>}} An array of items matching the query.
  */
-export async function search_items({ id, name, prod_url, img_url, price, desc, category, skip, limit } = {}) {
+export async function search_items({ id = null, name = null, prod_url = null, img_url = null, price = null, desc = null, category = null, tags = null, skip = null, limit = null } = {}) {
     const query_params = {}
 
     // Include arguments if they are not null and are defined
-    if (id !== null && id !== undefined)
+    if (id !== null)
         query_params["id"] = id
 
-    if (name !== null && name !== undefined)
+    if (name !== null)
         query_params["name"] = name
 
-    if (prod_url !== null && prod_url !== undefined)
+    if (prod_url !== null)
         query_params["prod_url"] = prod_url
 
-    if (img_url !== null && img_url !== undefined)
+    if (img_url !== null)
         query_params["img_url"] = img_url
 
-    if (price !== null && price !== undefined)
+    if (price !== null)
         query_params["price"] = price
 
-    if (desc !== null && desc !== undefined)
+    if (desc !== null)
         query_params["desc"] = desc
 
-    if (category !== null && category !== undefined)
+    if (category !== null)
         query_params["category"] = category
 
-    if (skip !== null && skip !== undefined)
+    if (skip !== null)
         query_params["skip"] = skip
 
-    if (limit !== null && limit !== undefined)
+    if (limit !== null)
         query_params["limit"] = limit
+
+    if (tags !== null)
+        query_params["tags"] = tags
 
 
     const path = "items?" + new URLSearchParams(query_params);
@@ -83,32 +142,24 @@ export async function search_items({ id, name, prod_url, img_url, price, desc, c
     if (!success) {
         throw new Error(`${status} Error getting items.`);
     }
+    let formatted_items = []
 
-    // Return items
-    return items;
+    // Convert response to array of Item Objects
+    items.forEach(item => {
+        formatted_items.push(new Item(item._id, item.name, item.prod_url,
+            item.img_url, item.desc, item.price, item.category, item.tags))
+    });
+
+    return formatted_items;
 }
 
 /**
  * Calls route for inserting item.
- * @param {string} name Item name
- * @param {string} prod_url Item url
- * @param {string} img_url Item image url
- * @param {number} price Item price
- * @param {string} category Item category
- * @returns JSON information with operation results.
+ * @param {ItemInfo} item An instance of an Item.
+ * @returns {Promise<object>} JSON information with operation results.
  */
-export async function post_item(name, prod_url, img_url, price, desc, category) {
+export async function post_item(item) {
     const path = "items";
-
-    const item = {
-        name: name,
-        prod_url: prod_url,
-        img_url: img_url,
-        price: price,
-        desc: desc,
-        category: category
-    }
-
     const response = await fetch(api_url + path, {
         method: "POST", headers: {
             'Accept': 'application/json',
@@ -118,6 +169,7 @@ export async function post_item(name, prod_url, img_url, price, desc, category) 
     const status = response.status;
     const success = status == 200;
     if (!success) {
+        console.log(await response.json())
         throw new Error(`${status} Error posting item.`);
     }
 
@@ -126,27 +178,13 @@ export async function post_item(name, prod_url, img_url, price, desc, category) 
 }
 
 /**
- * Calls route for putting / updating item.
- * @param {string} id Item ID
- * @param {string} name Item name
- * @param {string} prod_url Item url
- * @param {string} img_url Item image url
- * @param {number} price Item price
- * @param {string} category Item category
- * @returns JSON information with operation results.
+ * Calls Awesome Store API to store a new item.
+ * @param {string} id ID of the item to be updated.
+ * @param {ItemInfo} item Information of an item to be updated.
+ * @returns {Promise<object} JSON response indicating result of the operation.
  */
-export async function put_item(id, name, prod_url, img_url, price, desc, category) {
+export async function put_item(id, item) {
     const path = "items/id/" + id;
-
-    const item = {
-        name: name,
-        prod_url: prod_url,
-        img_url: img_url,
-        price: price,
-        desc: desc,
-        category: category
-    }
-
     const response = await fetch(api_url + path, {
         method: "PUT", headers: {
             'Accept': 'application/json',
@@ -169,7 +207,7 @@ export async function put_item(id, name, prod_url, img_url, price, desc, categor
 /**
  * Delete an item from the database.
  * @param {string} id Item ID
- * @returns JSON info with results.
+ * @returns {Promise<object>} JSON info with results.
  */
 export async function delete_item(id) {
     const path = "items/id/" + id;
@@ -219,8 +257,10 @@ export async function login(username, password) {
         throw new Error(`${status} Error logging in.`);
     }
 
-    // Return response as json
-    return await response.json();
+    const jsonResponse = await response.json();
+
+    // Return login response
+    return new AuthResponse(jsonResponse.success, jsonResponse.detail);
 }
 
 /**
@@ -258,14 +298,16 @@ export async function register(first_name, last_name, username, email, password)
         throw new Error(`${status} Error registering.`);
     }
 
+    const jsonResponse = await response.json();
+
     // Return response as json
-    return await response.json();
+    return new AuthResponse(jsonResponse.success, jsonResponse.detail);
 }
 
 /**
  * Retreives items in a category
  * @param {string} category Category name 
- * @returns An array of items
+ * @returns {Promise<Array<Item>>} An array of items
  */
 export async function items_by_category(category, skip = 0, limit = 0) {
     const path = `items/category/${category}?` + new URLSearchParams({ skip: skip, limit: limit })
@@ -282,14 +324,20 @@ export async function items_by_category(category, skip = 0, limit = 0) {
         throw new Error(`${status} Error getting items.`);
     }
 
+    let formatted_items = [];
+
+    items.forEach(item => {
+        formatted_items.push(new Item(item._id, item.name, item.prod_url, item.img_url, item.desc, item.price, item.category, item.tags))
+    });
+
     // Return items
-    return items;
+    return formatted_items;
 }
 
 /**
  * Retreives an item by its ID.
  * @param {string} id Item ID
- * @returns An item.
+ * @returns {Promise<Item>} An item.
  */
 export async function item_by_id(id) {
     const path = "items/id/" + id;
@@ -306,17 +354,17 @@ export async function item_by_id(id) {
     }
 
     // Return item
-    return item;
+    return new Item(item._id, item.name, item.prod_url, item.img_url,
+        item.desc, item.price, item.category, item.tags);
 }
 
 /**
  * Retreives an item's image by ID.
  * @param {string} id Item ID
- * @returns An image as a Blob.
+ * @returns {Promise<string>} An image as an object URL created from a BLOB.
  */
 export async function image_by_id(id) {
     const path = "image/id/" + id;
-    let image = null
 
     const response = await fetch(api_url + path, { method: "GET" });
     const blob = await response.blob();
@@ -327,33 +375,33 @@ export async function image_by_id(id) {
         throw new Error(`${status} Error getting image.`);
     }
 
-    // Return image as blob
-    return blob;
+    // Return image as objectURL
+    return URL.createObjectURL(blob);
 }
 
 // async function main() {
-
-//     let data = await get_categories();
+//     let data;
+//     data = await get_categories();
 //     console.log("GET /categories");
 //     console.log(data);
 
-//     data = await search_items({ category: "Soft Candy", limit: 1 });
+//     data = await search_items({ limit: 2 });
 //     console.log("GET /items");
 //     console.log(data);
 
-//     data = await item_by_id("65ff48a4aa724129f8404a1a");
+//     data = await item_by_id("66048202614bad457356af70");
 //     console.log("GET /items/id");
 //     console.log(data);
 
-//     data = await items_by_category("Soft Candy", 0, 1);
+//     data = await items_by_category("Grocery & Gourmet Food", 0, 1);
 //     console.log("GET /items/category");
 //     console.log(data);
 
-//     data = await post_item("Test", "Stuff", "Stuff", 10.0, "Hello here", "Fortnite");
+//     data = await post_item(new ItemInfo("Name", "prod_url", "img_url", "description", 1, "Miscellaneous", ["Fortnite"]));
 //     console.log("POST /items");
 //     console.log(data);
 
-//     data = await put_item("65ff48a4aa724129f8404a1b", "Test", "Stuff", "Stuff", 10.0, "Hello here", "Fortnite");
+//     data = await put_item("65ff48a4aa724129f8404a1b", new ItemInfo("Name", "prod_url", "img_url", "description", 1, "Miscellaneous", ["Fortnite"]));
 //     console.log("PUT /items/id");
 //     console.log(data);
 
@@ -369,8 +417,13 @@ export async function image_by_id(id) {
 //     console.log("POST /register");
 //     console.log(data);
 
-//     data = await image_by_id("65ff48a4aa724129f8404a1a");
-//     console.log("GET /items/id");
+//     data = await item_by_id("66048202614bad457356af70");
+//     console.log("GET /item/id");
+//     console.log(data);
+
+//     data = await image_by_id("66048202614bad457356af70");
+//     console.log("GET /image/id");
+//     file = new File([data], "img.jpg");
 //     console.log(data);
 // }
 

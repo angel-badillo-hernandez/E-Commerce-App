@@ -30,7 +30,7 @@ export default function ({ navigation }) {
             <Button
               text="Search"
               onPress={() => {
-                navigation.navigate('SecondScreen');
+                navigation.navigate('Search');
               }}
               style={{
                 marginTop: 10,

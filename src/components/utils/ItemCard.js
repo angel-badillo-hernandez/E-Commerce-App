@@ -1,36 +1,45 @@
 import React from "react";
-import { themeColor, useTheme, Section, SectionContent, SectionImage } from "react-native-rapi-ui";
+import { StyleSheet } from "react-native";
+import { themeColor, useTheme, Section, SectionContent, SectionImage, Text } from "react-native-rapi-ui";
 import { Ionicons } from "@expo/vector-icons";
+import { Item } from "../../api/AwesomeStoreServices";
 
-export function Item(props, item_info) {
+/**
+ * Creates a new
+ * @param {object} props
+ * @param {Item} item
+ * @returns {React.JSX.Element} A new item card.
+ */
+export default function ItemCard(props) {
     const { IsDarkMode } = useTheme();
+
     return (<Section>
 
-        <Text fontWeight="bold" // ID
+        <Text fontWeight="normal" // ID
+            italic="true"
             style={{
                 marginBottom: 5,
                 color: props.focused
-                    ? isDarkmode
+                    ? IsDarkMode
                         ? themeColor.white100
                         : themeColor.primary
-                    : "rgb(143, 155, 179)",
-                fontSize: 10,
+                    : "grey",
             }}>
-            {item_info._id}
+            {props.id}
         </Text>
         <Text fontWeight="bold" // Name
             style={{
                 marginBottom: 5,
                 color: props.focused
-                    ? isDarkmode
+                    ? IsDarkMode
                         ? themeColor.white100
                         : themeColor.primary
-                    : "rgb(143, 155, 179)",
-                fontSize: 10,
+                    : "black",
+
             }}>
-            {item_info.name}
+            {props.name}
         </Text>
-        <SectionImage source={{ uri: item_info.img_url }} // Image
+        <SectionImage source={{ uri: props.img_url }} // Image
             style={{ width: 200, height: 200 }} // Specify dimensions} 
         />
         <SectionContent>
@@ -38,37 +47,35 @@ export function Item(props, item_info) {
                 style={{
                     marginBottom: 5,
                     color: props.focused
-                        ? isDarkmode
+                        ? IsDarkMode
                             ? themeColor.white100
                             : themeColor.primary
                         : "rgb(143, 155, 179)",
                     fontSize: 10,
                 }}>
-                {item_info.desc}
+                {props.desc}
             </Text>
             <Text fontWeight="bold" // Price
                 style={{
                     marginBottom: 5,
                     color: props.focused
-                        ? isDarkmode
+                        ? IsDarkMode
                             ? themeColor.white100
                             : themeColor.primary
-                        : "rgb(143, 155, 179)",
-                    fontSize: 10,
+                        : "rgb(143, 155, 179)"
                 }}>
-                {item_info.price}
+                {props.price}
             </Text>
-            <Text fontWeight="bold"
+            <Text fontWeight="bold" // Product url
                 style={{
                     marginBottom: 5,
                     color: props.focused
-                        ? isDarkmode
+                        ? IsDarkMode
                             ? themeColor.white100
                             : themeColor.primary
-                        : "rgb(143, 155, 179)",
-                    fontSize: 10,
+                        : "rgb(143, 155, 179)"
                 }}>
-                {item_info.prod_url}
+                {props.prod_url}
             </Text>
         </SectionContent>
     </Section>);
