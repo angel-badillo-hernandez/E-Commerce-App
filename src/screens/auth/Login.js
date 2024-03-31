@@ -2,27 +2,38 @@ import React, { useState } from 'react';
 import { ScrollView, TouchableOpacity, View, KeyboardAvoidingView, Image } from 'react-native';
 // import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Layout, Text, TextInput, Button, useTheme, themeColor } from 'react-native-rapi-ui';
+import {login} from '../../api/AwesomeStoreServices'
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
-  // const auth = getAuth();
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // async function login() {
-  //   setLoading(true);
-  //   await signInWithEmailAndPassword(auth, email, password).catch(function (
-  //     error
-  //   ) {
-  //     // Handle Errors here.
-  //     var errorCode = error.code;
-  //     var errorMessage = error.message;
-  //     // ...
-  //     setLoading(false);
-  //     alert(errorMessage);
-  //   });
-  // }
+  async function tryLogin() {
+    setLoading(true);
+    await login(username, password).then((response)=>{
+      // If login is not successful, show alert
+      if (!response.success)
+      {
+        throw Error(`Login failed. ${response.detail}.`)
+      }
+      // If successful, go to Search screen?
+      else{
+        navigation.navigate("Search")
+      }
+      setLoading(false);
+    }).catch(function (
+      error
+    ) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+      setLoading(false);
+      alert(errorMessage);
+    });
+  }
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
@@ -67,16 +78,16 @@ export default function ({ navigation }) {
             >
               Login
             </Text>
-            <Text>Email</Text>
+            <Text>Username</Text>
             <TextInput
               containerStyle={{ marginTop: 15 }}
-              placeholder="Enter your email"
-              value={email}
+              placeholder="Enter your username"
+              value={username}
               autoCapitalize="none"
               autoCompleteType="off"
               autoCorrect={false}
-              keyboardType="email-address"
-              onChangeText={(text) => setEmail(text)}
+              keyboardType="default"
+              onChangeText={(text) => setUsername(text)}
             />
 
             <Text style={{ marginTop: 15 }}>Password</Text>
@@ -93,7 +104,7 @@ export default function ({ navigation }) {
             <Button
               text={loading ? 'Loading' : 'Continue'}
               onPress={() => {
-                // login();
+                tryLogin();
               }}
               style={{
                 marginTop: 20,

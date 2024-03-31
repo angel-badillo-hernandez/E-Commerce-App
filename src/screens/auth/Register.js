@@ -2,27 +2,69 @@ import React, { useState } from 'react';
 import { ScrollView, TouchableOpacity, View, KeyboardAvoidingView, Image } from 'react-native';
 // import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Layout, Text, TextInput, Button, useTheme, themeColor } from 'react-native-rapi-ui';
+import { login, register } from '../../api/AwesomeStoreServices'
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
   // const auth = getAuth();
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
-  // async function register() {
-  //   setLoading(true);
-  //   await createUserWithEmailAndPassword(auth, email, password).catch(function (
-  //     error
-  //   ) {
-  //     // Handle Errors here.
-  //     var errorCode = error.code;
-  //     var errorMessage = error.message;
-  //     // ...
-  //     setLoading(false);
-  //     alert(errorMessage);
-  //   });
-  // }
+  async function tryRegister() {
+    setLoading(true);
+
+    // Show alert if any fields are empty
+    if (!firstName) {
+      alert('Please enter your first name.');
+      setLoading(false);
+      return;
+    }
+    if (!lastName) {
+      alert('Please enter your last name.');
+      setLoading(false);
+      return;
+    }
+    if (!username) {
+      alert('Please enter your username.');
+      setLoading(false);
+      return;
+    }
+    if (!email) {
+      alert('Please enter your email address.');
+      setLoading(false);
+      return;
+    }
+    if (!password) {
+      alert('Please enter your password.');
+      setLoading(false);
+      return;
+    }
+    // Try to register
+    await register(firstName, lastName, username, email, password).then((response) => {
+      // If registration is not successful, show alert
+      if (!response.success) {
+        throw Error(`Registration failed. ${response.detail}.`)
+      }
+      // If successful, go to Search screen?
+      else {
+        navigation.navigate("Search")
+      }
+      setLoading(false);
+    }).catch(function (
+      error
+    ) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+      setLoading(false);
+      alert(errorMessage);
+    });
+  }
 
   return (
     <KeyboardAvoidingView behavior="height" enabled style={{ flex: 1 }}>
@@ -67,10 +109,43 @@ export default function ({ navigation }) {
             >
               Register
             </Text>
-            <Text>Email</Text>
+            <Text>First Name</Text>
             <TextInput
               containerStyle={{ marginTop: 15 }}
-              placeholder="Enter your email"
+              placeholder="Enter your first name"
+              value={firstName}
+              autoCapitalize="words"
+              autoCompleteType="off"
+              autoCorrect={false}
+              keyboardType="default"
+              onChangeText={(text) => setFirstName(text)}
+            />
+            <Text style={{ marginTop: 15 }}>Last Name</Text>
+            <TextInput
+              containerStyle={{ marginTop: 15 }}
+              placeholder="Enter your last name"
+              value={lastName}
+              autoCapitalize="words"
+              autoCompleteType="off"
+              autoCorrect={false}
+              keyboardType="default"
+              onChangeText={(text) => setLastName(text)}
+            />
+            <Text style={{ marginTop: 15 }}>Username</Text>
+            <TextInput
+              containerStyle={{ marginTop: 15 }}
+              placeholder="Enter your last name"
+              value={username}
+              autoCapitalize="none"
+              autoCompleteType="off"
+              autoCorrect={false}
+              keyboardType="default"
+              onChangeText={(text) => setUsername(text)}
+            />
+            <Text style={{ marginTop: 15 }}>Email</Text>
+            <TextInput
+              containerStyle={{ marginTop: 15 }}
+              placeholder="Enter your email address"
               value={email}
               autoCapitalize="none"
               autoCompleteType="off"
@@ -93,7 +168,7 @@ export default function ({ navigation }) {
             <Button
               text={loading ? 'Loading' : 'Create an account'}
               onPress={() => {
-                // register();
+                tryRegister();
               }}
               style={{
                 marginTop: 20,
