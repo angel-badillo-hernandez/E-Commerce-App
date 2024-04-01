@@ -23,7 +23,7 @@ export default function SearchScreen() {
     setSearchQuery(query);
     const results = await search_items({ name: query });
     setSearchResults(results);
-    // Add search logic here
+    // doesnt work yet lol
   };
 
   const handleItemClick = (item) => {
