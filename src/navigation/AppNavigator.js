@@ -8,7 +8,7 @@ import TabBarIcon from '../components/utils/TabBarIcon';
 import TabBarText from '../components/utils/TabBarText';
 
 import Home from '../screens/Home';
-import SecondScreen from '../screens/SecondScreen';
+import Search from '../screens/Search';
 import About from '../screens/About';
 import Profile from '../screens/Profile';
 
@@ -25,7 +25,7 @@ const Main = () => {
       }}
     >
       <MainStack.Screen name="Welcome" component={Home} />
-      <MainStack.Screen name="Search" component={SecondScreen} />
+      <MainStack.Screen name="Search" component={Search} />
       <MainStack.Screen name="Login" component={Login} />
       <MainStack.Screen name="Register" component={Register} />
       <MainStack.Screen name="ForgetPassword" component={ForgetPassword} />
