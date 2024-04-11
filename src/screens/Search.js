@@ -7,8 +7,10 @@ import {
   Text,
   Modal,
   TouchableOpacity,
+  TouchableWithoutFeedback,
+  TouchableHighlight,
 } from 'react-native';
-import { Searchbar } from 'react-native-paper';
+import { ActivityIndicator, Searchbar } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { search_items, get_categories } from '../api/AwesomeStoreServices.js';
 
@@ -16,32 +18,31 @@ export default function SearchScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleCategoryClick = async (category) => {
+    const items = await search_items({ category });
+    setSearchResults(items);
+    setModalVisible(false);
+  };
 
   useEffect(() => {
     get_categories().then(setCategories);
   }, []);
 
-  // I'm not sure if this is the correct way to use the search_items function
-  // always returns blank screen when I try to search lul
   useEffect(() => {
     if (searchQuery !== '') {
+      setIsLoading(true);
       search_items({ name: searchQuery, category: selectedCategory })
         .then(setSearchResults)
-        .catch(console.error); // not working i hate this
+        .catch(console.error);
+      setIsLoading(false);
+    } else {
+      setSearchResults([]);
     }
   }, [searchQuery, selectedCategory]);
-
-// should the categories be the actual categories or the tags you made?
-// was also having trouble using the get_categories in your services file
-  function get_categories() {
-    return Promise.resolve([
-      { id: 1, name: 'Test' },
-      { id: 2, name: 'TEst' },
-      { id: 3, name: 'FoRTnit3' },
-    ]);
-  }
 
   return (
     <SafeAreaView style={styles.container}>
@@ -54,7 +55,12 @@ export default function SearchScreen() {
         />
         <Searchbar
           placeholder="Search"
-          onChangeText={setSearchQuery}
+          onChangeText={(query) => {
+            setSearchQuery(query);
+            if (query === '') {
+              setSearchResults([]);
+            }
+          }}
           value={searchQuery}
           style={styles.searchbar}
         />
@@ -67,27 +73,30 @@ export default function SearchScreen() {
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            {categories.map((category) => (
-              <TouchableOpacity
-                key={category.id}
-                onPress={() => {
-                  setSelectedCategory(category.id);
-                  setModalVisible(false);
-                }}
-              >
-                <Text style={styles.modalText}>{category.name}</Text>
+        <TouchableWithoutFeedback onPress={() => setModalVisible(false)}>
+          <View style={styles.centeredView}>
+            <View style={styles.modalView}>
+              {categories.map((category, index) => (
+                <TouchableOpacity key={index} onPress={() => handleCategoryClick(category)}>
+                  <Text style={styles.modalText}>{category}</Text>
+                </TouchableOpacity>
+              ))}
+              <TouchableOpacity style={styles.closeButton} onPress={() => setModalVisible(false)}>
+                <Text style={styles.closeButtonText}>x</Text>
               </TouchableOpacity>
-            ))}
+            </View>
           </View>
-        </View>
+        </TouchableWithoutFeedback>
       </Modal>
-      <FlatList
-        data={searchResults}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <Text>{item.name}</Text>}
-      />
+      {isLoading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <FlatList
+          data={searchResults}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={({ item }) => <Text>{item.name}</Text>}
+        />
+      )}
     </SafeAreaView>
   );
 }
@@ -120,5 +129,15 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: 'center',
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    padding: 11,
+  },
+  closeButtonText: {
+    fontSize: 20,
+    color: 'black',
   },
 });
