@@ -10,7 +10,7 @@ import TabBarText from '../components/utils/TabBarText';
 import Home from '../screens/Home';
 import Search from '../screens/Search';
 import About from '../screens/About';
-import Profile from '../screens/Profile';
+import Map from '../screens/Map';
 
 import Login from '../screens/auth/Login';
 import Register from '../screens/auth/Register';
@@ -56,11 +56,11 @@ const MainTabs = () => {
         }}
       />
       <Tabs.Screen
-        name="Profile"
-        component={Profile}
+        name="Map"
+        component={Map}
         options={{
-          tabBarLabel: ({ focused }) => <TabBarText focused={focused} title="Profile" />,
-          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} icon={'person'} />,
+          tabBarLabel: ({ focused }) => <TabBarText focused={focused} title="Map" />,
+          tabBarIcon: ({ focused }) => <TabBarIcon focused={focused} icon={'map'} />,
         }}
       />
       <Tabs.Screen
