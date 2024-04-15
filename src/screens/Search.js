@@ -10,9 +10,10 @@ import {
   TouchableWithoutFeedback,
   TouchableHighlight,
 } from 'react-native';
-import { ActivityIndicator, Searchbar } from 'react-native-paper';
+import { ActivityIndicator, Searchbar, Card } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { search_items, get_categories } from '../api/AwesomeStoreServices.js';
+import { Title, Paragraph } from 'react-native-paper';
 
 export default function SearchScreen() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -27,6 +28,17 @@ export default function SearchScreen() {
     setSearchResults(items);
     setModalVisible(false);
   };
+
+  const renderItem = ({ item }) => (
+    <Card style={{ margin: 10 }}>
+      <Card.Content>
+        <Title>{item.name}</Title>
+        <Paragraph>{item.description}</Paragraph>
+        <Paragraph>${item.price}</Paragraph>
+      </Card.Content>
+      <Card.Cover source={{ uri: item.img_url }} />
+    </Card>
+  );
 
   useEffect(() => {
     get_categories().then(setCategories);
@@ -93,8 +105,8 @@ export default function SearchScreen() {
       ) : (
         <FlatList
           data={searchResults}
+          renderItem={renderItem}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => <Text>{item.name}</Text>}
         />
       )}
     </SafeAreaView>
