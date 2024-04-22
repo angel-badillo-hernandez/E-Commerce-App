@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
 import { Button, Layout, Text, useTheme } from 'react-native-rapi-ui';
+import { Title } from 'react-native-paper';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
 import * as Location from 'expo-location';
 import { AppBar, IconButton } from '@react-native-material/core';
@@ -48,9 +49,11 @@ export default function ({ navigation }) {
           }}
         >
           <Callout>
-            <Text>Name: {`${item.first_name} ${item.last_name}`}</Text>
-            <Text>Email: {item.email}</Text>
-            <Text>{`Last seen at ${new Date(item.timestamp).toLocaleString()}`}</Text>
+            <Title style={styles.title}>{`${item.first_name} ${item.last_name}`}</Title>
+            <Text>{item.email}</Text>
+            <Text style={styles.lastseen}>{`Last seen at ${new Date(
+              item.timestamp
+            ).toLocaleString()}`}</Text>
           </Callout>
         </Marker>
       );
@@ -109,6 +112,13 @@ const styles = StyleSheet.create({
   },
   map: {
     ...StyleSheet.absoluteFillObject,
+  },
+  title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  lastseen: {
+    marginTop: 5,
   },
 });
 
