@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
 import { Button, Layout, Text, useTheme } from 'react-native-rapi-ui';
-import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
 import * as Location from 'expo-location'
 import { AppBar, IconButton } from '@react-native-material/core';
 import Icon from "@expo/vector-icons/MaterialCommunityIcons";
@@ -43,7 +43,9 @@ export default function ({ navigation }) {
           coordinate={{ latitude: item.latitude, longitude: item.longitude }}
           title={`${item.first_name} ${item.last_name}`}
           description={`Last seen at ${new Date(item.timestamp).toLocaleString()}`}
-          onPress={() => console.log(index)}
+          onPress={(event) => {
+            alert("Fortnite");
+          }}
         />
       );
     });
