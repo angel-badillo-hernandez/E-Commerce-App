@@ -1,6 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import { Layout, Text } from 'react-native-rapi-ui';
+import { Avatar } from "@react-native-material/core";
 
 export default function ({ navigation }) {
 	return (
@@ -14,6 +15,7 @@ export default function ({ navigation }) {
 			>
 				<Text>This is the About tab</Text>
 			</View>
+			<Avatar label={'Angel Badillo'}></Avatar>
 		</Layout>
 	);
 }
