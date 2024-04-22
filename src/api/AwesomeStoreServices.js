@@ -287,7 +287,7 @@ async function delete_item(id) {
  * @param {string} password Password of user
  * @returns JSON info with the results of the operation.
  */
-async function login(username, password) {
+export async function login(username, password) {
   const path = 'login';
 
   const body = {
@@ -327,7 +327,7 @@ async function login(username, password) {
  * @param {string} password User password
  * @returns JSON info with results of the operation.
  */
-async function register(first_name, last_name, username, email, password) {
+export async function register(first_name, last_name, username, email, password) {
   const path = 'register';
 
   const user = {

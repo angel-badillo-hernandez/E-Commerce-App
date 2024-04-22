@@ -8,12 +8,10 @@ import {
   Modal,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  TouchableHighlight,
 } from 'react-native';
-import { ActivityIndicator, Searchbar, Card } from 'react-native-paper';
+import { ActivityIndicator, Searchbar, Card, Title, Paragraph } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { search_items, get_categories } from '../api/AwesomeStoreServices.js';
-import { Title, Paragraph } from 'react-native-paper';
 
 export default function SearchScreen() {
   const [searchQuery, setSearchQuery] = useState('');
