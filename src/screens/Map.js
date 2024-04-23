@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Modal } from 'react-native';
-import { Button, Layout, Text, useTheme } from 'react-native-rapi-ui';
+import { View, StyleSheet, Modal, Image } from 'react-native';
+import { Layout, Text, useTheme } from 'react-native-rapi-ui';
 import { Title } from 'react-native-paper';
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from 'react-native-maps';
 import * as Location from 'expo-location';
-import { AppBar, IconButton } from '@react-native-material/core';
+import { IconButton } from '@react-native-material/core';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import { UserData, UserLocation, User, get_all_user_data } from '../api/AwesomeStoreServices';
 
@@ -12,7 +12,6 @@ export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
   const [myLocation, setMyLocation] = useState(null);
   const [otherUserMarkers, setOtherUsersMarkers] = useState([]);
-  const [modalIsVisible, setModalVisible] = useState(false);
 
   const getLocationPermission = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -38,20 +37,16 @@ export default function ({ navigation }) {
   };
 
   const userDataToMarkers = (users_data) => {
-    let temp = users_data;
     let markers = users_data.map((item, index) => {
       return (
         <Marker
           key={index}
           coordinate={{ latitude: item.latitude, longitude: item.longitude }}
-          onPress={(event) => {
-            alert('Fortnite');
-          }}
         >
           <Callout>
             <Title style={styles.title}>{`${item.first_name} ${item.last_name}`}</Title>
-            <Text>{item.email}</Text>
-            <Text style={styles.lastseen}>{`Last seen at ${new Date(
+            <Text style={styles.markerText}>{item.email}</Text>
+            <Text style={styles.lastSeen}>{`Last seen on ${new Date(
               item.timestamp
             ).toLocaleString()}`}</Text>
           </Callout>
@@ -72,7 +67,7 @@ export default function ({ navigation }) {
         <MapView
           provider={PROVIDER_GOOGLE}
           style={styles.map}
-          customMapStyle={isDarkmode ? mapDarkStyle : markLightStyle}
+          customMapStyle={isDarkmode ? mapDarkStyle : mapLightStyle}
           zoomControlEnabled={true}
           scrollEnabled={true}
           showsMyLocationButton={true}
@@ -87,17 +82,7 @@ export default function ({ navigation }) {
         >
           {otherUserMarkers}
         </MapView>
-        <AppBar
-          variant="bottom"
-          color="white"
-          leading={(props) => (
-            <IconButton
-              icon={(props) => <Icon name="refresh" {...props} />}
-              {...props}
-              onPress={getOtherUsersMarkers}
-            />
-          )}
-        />
+        <IconButton contentContainerStyle={styles.refreshButton} onPress={getOtherUsersMarkers} icon={<Icon name='refresh' size={30} color='rgba(55, 55, 55, 0.7)' />} />
       </View>
     </Layout>
   );
@@ -117,9 +102,18 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  lastseen: {
-    marginTop: 5,
+  markerText: {
+    color: 'black',
+    fontSize: 14,
   },
+  lastSeen: {
+    marginTop: 5,
+    fontSize: 14,
+    color: 'green'
+  },
+  refreshButton: {
+    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+  }
 });
 
 const mapDarkStyle = [
@@ -284,4 +278,4 @@ const mapDarkStyle = [
   },
 ];
 
-const markLightStyle = [];
+const mapLightStyle = [];
