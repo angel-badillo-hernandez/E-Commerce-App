@@ -18,21 +18,13 @@ export default function ({ navigation }) {
           <SectionContent>
             <Button
               style={{ marginTop: 10 }}
-              text="Login"
-              status="info"
-              onPress={() => {
-                navigation.navigate('Login');
-              }}
-            />
-            <Button
               text="Search"
+              status="info"
               onPress={() => {
                 navigation.navigate('Search');
               }}
-              style={{
-                marginTop: 10,
-              }}
             />
+            
 
             <Button
               text={isDarkmode ? 'Light Mode' : 'Dark Mode'}

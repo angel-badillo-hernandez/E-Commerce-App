@@ -18,9 +18,9 @@ export default function ({ navigation }) {
       {
         throw Error(`Login failed. ${response.detail}.`)
       }
-      // If successful, go to Search screen?
+      // If successful, go to Search screen? no lol go home bruh
       else{
-        navigation.navigate("Search")
+        navigation.navigate('MainTabs')
       }
       setLoading(false);
     }).catch(function (
@@ -145,15 +145,7 @@ export default function ({ navigation }) {
                 justifyContent: 'center',
               }}
             >
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate('ForgetPassword');
-                }}
-              >
-                <Text size="md" fontWeight="bold">
-                  Forget password
-                </Text>
-              </TouchableOpacity>
+              
             </View>
             <View
               style={{
