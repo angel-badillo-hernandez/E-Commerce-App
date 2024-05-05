@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { View, FlatList, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import { Layout } from 'react-native-rapi-ui';
+import { Layout, useTheme } from 'react-native-rapi-ui';
 
 export default function Chat({ navigation }) {
+  const { isDarkmode } = useTheme();
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
 
@@ -25,29 +26,29 @@ export default function Chat({ navigation }) {
         data={messages}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <View style={styles.messageContainer}>
-            <Text>{item.text}</Text>
+          <View style={isDarkmode ? darkStyles.messageContainer : styles.messageContainer}>
+            <Text style={{ color: isDarkmode ? '#ffffff' : '#000000' }}>{item.text}</Text>
           </View>
         )}
-        style={{ flex: 1 }}
+        style={{ flex: 1, backgroundColor: isDarkmode ? '#000000' : '#ffffff' }}
       />
       <View style={styles.inputContainer}>
         <TextInput
           value={inputText}
           onChangeText={setInputText}
           placeholder="Type a message..."
-          style={styles.input}
+          placeholderTextColor={isDarkmode ? '#ffffff' : '#000000'}
+          style={isDarkmode ? darkStyles.input : styles.input}
           onSubmitEditing={sendMessage}
           returnKeyType="send"
         />
-        <TouchableOpacity onPress={sendMessage} style={styles.sendButton}>
-          <Text style={styles.sendButtonText}>Send</Text>
+        <TouchableOpacity onPress={sendMessage} style={isDarkmode ? darkStyles.sendButton : styles.sendButton}>
+          <Text style={isDarkmode ? darkStyles.sendButtonText : styles.sendButtonText}>Send</Text>
         </TouchableOpacity>
       </View>
     </Layout>
   );
 }
-
 const styles = StyleSheet.create({
   messageContainer: {
     padding: 10,
@@ -77,5 +78,40 @@ const styles = StyleSheet.create({
   sendButtonText: {
     color: '#ffffff', // Example text color
     fontSize: 16, // Example font size
+  },
+});
+
+const darkStyles = StyleSheet.create({
+  messageContainer: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#555',
+    backgroundColor: '#333', // Dark background for message container
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    padding: 10,
+  },
+  input: {
+    flex: 1,
+    marginRight: 10,
+    borderWidth: 1,
+    borderColor: '#555',
+    borderRadius: 5,
+    padding: 10,
+    backgroundColor: '#333', // Dark background for input
+    color: '#ffffff', // Dark mode text color
+  },
+  sendButton: {
+    backgroundColor: '#007bff', // Adjust if needed for dark mode
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sendButtonText: {
+    color: '#ffffff', // Adjust if needed for dark mode
+    fontSize: 16,
   },
 });

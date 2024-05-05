@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Linking } from 'react-native';
+import { View, Linking, Image } from 'react-native'; // Import Image
 import { Layout, Button, Text, Section, SectionContent, useTheme } from 'react-native-rapi-ui';
 
 export default function ({ navigation }) {
@@ -14,6 +14,12 @@ export default function ({ navigation }) {
           marginHorizontal: 20,
         }}
       >
+        {/* Add Image component here to display the GIF */}
+        <Image
+          source={{ uri: 'https://thehonoredone.live:8085/static/store.gif' }}
+          style={{ width: 350, height: 300, marginBottom: 30 }} // Adjust size as needed
+          resizeMode="contain"
+        />
         <Section>
           <SectionContent>
             <Button
@@ -24,8 +30,6 @@ export default function ({ navigation }) {
                 navigation.navigate('Search');
               }}
             />
-            
-
             <Button
               text={isDarkmode ? 'Light Mode' : 'Dark Mode'}
               status={isDarkmode ? 'success' : 'warning'}
