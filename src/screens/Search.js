@@ -24,6 +24,7 @@ export default function SearchScreen() {
   const handleCategoryClick = async (category) => {
     const items = await search_items({ category });
     setSearchResults(items);
+    setSelectedCategory(category);
     setModalVisible(false);
   };
 
