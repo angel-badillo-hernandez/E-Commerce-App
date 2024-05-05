@@ -31,10 +31,13 @@ export default function SearchScreen() {
     <Card style={{ margin: 10 }}>
       <Card.Content>
         <Title>{item.name}</Title>
-        <Paragraph>{item.description}</Paragraph>
         <Paragraph>${item.price}</Paragraph>
+        <Paragraph>{`ID: ${item.id}`}</Paragraph>
       </Card.Content>
       <Card.Cover source={{ uri: item.img_url }} />
+      <Card.Content>
+      <Paragraph>{item.desc}</Paragraph>
+      </Card.Content>
     </Card>
   );
 
@@ -58,7 +61,7 @@ export default function SearchScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.searchContainer}>
         <Icon.Button
-          name="bars"
+          name="filter"
           onPress={() => setModalVisible(true)}
           backgroundColor="#00000000"
           color="#000"
