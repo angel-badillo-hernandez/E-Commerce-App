@@ -11,6 +11,7 @@ export default function Chat({ navigation }) {
     if (inputText.trim()) {
       const newMessage = {
         id: Date.now().toString(),
+        timestamp: Date.now(),
         text: inputText,
         sender: 'user',
       };
@@ -27,7 +28,10 @@ export default function Chat({ navigation }) {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={isDarkmode ? darkStyles.messageContainer : styles.messageContainer}>
-            <Text style={{ color: isDarkmode ? '#ffffff' : '#000000' }}>{item.text}</Text>
+            <Text style={isDarkmode ? darkStyles.senderText : styles.senderText}>{item.sender === "user" ? "me" : item.sender}</Text>
+            <Text style={isDarkmode ? darkStyles.messageText : styles.messageText}>{item.text}</Text>
+            <Text></Text>
+            <Text style={isDarkmode ? darkStyles.timeText : styles.timeText}>{`${new Date(item.timestamp).toLocaleString()}`}</Text>
           </View>
         )}
         style={{ flex: 1, backgroundColor: isDarkmode ? '#000000' : '#ffffff' }}
@@ -79,6 +83,18 @@ const styles = StyleSheet.create({
     color: '#ffffff', // Example text color
     fontSize: 16, // Example font size
   },
+  messageText: {
+    color: '#000000'
+  },
+  senderText: {
+    color: '#000000',
+    fontWeight: 'bold',
+  },
+  timeText: {
+    color: '#000000',
+    fontSize: 12,
+    fontStyle: 'italic',
+  }
 });
 
 const darkStyles = StyleSheet.create({
@@ -114,4 +130,16 @@ const darkStyles = StyleSheet.create({
     color: '#ffffff', // Adjust if needed for dark mode
     fontSize: 16,
   },
+  messageText: {
+    color: '#ffffff'
+  },
+  senderText: {
+    color: '#ffffff',
+    fontWeight: 'bold',
+  },
+  timeText: {
+    color: '#ffffff',
+    fontSize: 12,
+    fontStyle: 'italic',
+  }
 });
