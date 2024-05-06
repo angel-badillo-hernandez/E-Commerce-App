@@ -111,7 +111,7 @@ export class UserLocation {
  */
 export class UserData {
     /**
-     * 
+     * Creates a new instance of UserData.
      * @param {string} first_name First name of the user.
      * @param {string} last_name Last name of the user.
      * @param {string} username Username of the user.
@@ -128,6 +128,23 @@ export class UserData {
         this.latitude = latitude;
         this.longitude = longitude;
         this.timestamp = timestamp;
+    }
+}
+
+/**
+ * Represents a file with base64 data, it's file type, and it's name.
+ */
+export class FileBody {
+    /**
+     * Creates a new instance of FileBody.
+     * @param {string} base64_content 
+     * @param {string} file_type 
+     * @param {string} file_name 
+     */
+    constructor(base64_content, file_type, file_name) {
+        this.base64_content = base64_content;
+        this.file_type = file_type;
+        this.file_name = file_name;
     }
 }
 
@@ -354,7 +371,7 @@ export async function login(username, password) {
  * @returns JSON info with results of the operation.
  */
 export async function register(first_name, last_name, username, email, password) {
-  const path = 'register';
+    const path = 'register';
 
     const user = {
         first_name: first_name,
@@ -613,6 +630,34 @@ export async function get_all_user_data() {
     });
 
     return formatted_user_data;
+}
+
+/**
+ * 
+ * @param {FileBody} fileBody 
+ */
+export async function upload_image(fileBody) {
+    const path = 'uploaded-images';
+
+    const response = await fetch(api_url + path, {
+        method: 'POST',
+        headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(fileBody),
+    });
+
+    const status = response.status;
+    const success = status == 200;
+
+    // If not code 200 success, operation failed
+    if (!success) {
+        throw new Error(`${status} Failed to upload image.`);
+    }
+
+    // Return response as json
+    return await response.json();
 }
 
 
