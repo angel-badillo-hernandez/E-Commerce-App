@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Linking, Image } from 'react-native'; // Import Image
-import { Title } from 'react-native-paper';
+import { View } from 'react-native'; // Import Image
 import { Layout, Button, Section, SectionContent, useTheme } from 'react-native-rapi-ui';
 import { Text, StyleSheet, ImageBackground } from 'react-native';
-import { Spacer } from '@react-native-material/core';
+
+
 
 const FancyTitle = ({ title }) => {
   return (
@@ -17,11 +17,8 @@ export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
   return (
     <Layout>
-
       <ImageBackground source={require('../../assets/store.gif')} style={styles.backgroundImage}>
-        <View
-          style={styles.overlay}
-        >
+        <View style={styles.overlay}>
           <Section>
             <SectionContent>
               <FancyTitle title="Awesome Store" />
@@ -45,6 +42,14 @@ export default function ({ navigation }) {
                 }}
                 style={{
                   marginTop: 10,
+                }}
+              />
+              <Button
+                style={{ marginTop: 10 }}
+                text="Logout"
+                status="danger"
+                onPress={() => {
+                  navigation.navigate('Login');
                 }}
               />
             </SectionContent>

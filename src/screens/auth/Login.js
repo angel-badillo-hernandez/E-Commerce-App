@@ -1,14 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ScrollView, TouchableOpacity, View, KeyboardAvoidingView, Image } from 'react-native';
 // import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Layout, Text, TextInput, Button, useTheme, themeColor } from 'react-native-rapi-ui';
 import {login} from '../../api/AwesomeStoreServices'
+import { useIsFocused } from '@react-navigation/native';
 
 export default function ({ navigation }) {
+  const isFocused = useIsFocused();
   const { isDarkmode, setTheme } = useTheme();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (isFocused) {
+      setUsername('');
+      setPassword('');
+    }
+  }, [isFocused]);
 
   async function tryLogin() {
     setLoading(true);
