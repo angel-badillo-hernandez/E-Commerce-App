@@ -1,8 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Image, Button } from 'react-native';
-import { Layout, useTheme, Text } from 'react-native-rapi-ui';
-import { IconButton } from '@react-native-material/core';
-import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
 import { upload_image, FileBody } from '../api/AwesomeStoreServices';

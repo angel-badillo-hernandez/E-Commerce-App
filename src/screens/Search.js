@@ -37,7 +37,7 @@ export default function SearchScreen() {
       </Card.Content>
       <Card.Cover source={{ uri: item.img_url }} />
       <Card.Content>
-      <Paragraph>{item.desc}</Paragraph>
+        <Paragraph>{item.desc}</Paragraph>
       </Card.Content>
     </Card>
   );

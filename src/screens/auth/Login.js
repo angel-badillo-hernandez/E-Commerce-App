@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ScrollView, TouchableOpacity, View, KeyboardAvoidingView, Image } from 'react-native';
-// import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { Layout, Text, TextInput, Button, useTheme, themeColor } from 'react-native-rapi-ui';
-import {login} from '../../api/AwesomeStoreServices'
+import { login } from '../../api/AwesomeStoreServices';
 import { useIsFocused } from '@react-navigation/native';
 
 export default function ({ navigation }) {
@@ -21,27 +20,26 @@ export default function ({ navigation }) {
 
   async function tryLogin() {
     setLoading(true);
-    await login(username, password).then((response)=>{
-      // If login is not successful, show alert
-      if (!response.success)
-      {
-        throw Error(`Login failed. ${response.detail}.`)
-      }
-      // If successful, go to Search screen? no lol go home bruh
-      else{
-        navigation.navigate('MainTabs')
-      }
-      setLoading(false);
-    }).catch(function (
-      error
-    ) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-      setLoading(false);
-      alert(errorMessage);
-    });
+    await login(username, password)
+      .then((response) => {
+        // If login is not successful, show alert
+        if (!response.success) {
+          throw Error(`Login failed. ${response.detail}.`);
+        }
+        // If successful, go to Search screen? no lol go home bruh
+        else {
+          navigation.navigate('MainTabs');
+        }
+        setLoading(false);
+      })
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        setLoading(false);
+        alert(errorMessage);
+      });
   }
 
   return (
@@ -153,9 +151,7 @@ export default function ({ navigation }) {
                 marginTop: 10,
                 justifyContent: 'center',
               }}
-            >
-              
-            </View>
+            ></View>
             <View
               style={{
                 flexDirection: 'row',

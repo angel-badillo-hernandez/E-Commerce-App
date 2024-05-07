@@ -28,10 +28,16 @@ export default function Chat({ navigation }) {
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
           <View style={isDarkmode ? darkStyles.messageContainer : styles.messageContainer}>
-            <Text style={isDarkmode ? darkStyles.senderText : styles.senderText}>{item.sender === "user" ? "me" : item.sender}</Text>
-            <Text style={isDarkmode ? darkStyles.messageText : styles.messageText}>{item.text}</Text>
+            <Text style={isDarkmode ? darkStyles.senderText : styles.senderText}>
+              {item.sender === 'user' ? 'me' : item.sender}
+            </Text>
+            <Text style={isDarkmode ? darkStyles.messageText : styles.messageText}>
+              {item.text}
+            </Text>
             <Text></Text>
-            <Text style={isDarkmode ? darkStyles.timeText : styles.timeText}>{`${new Date(item.timestamp).toLocaleString()}`}</Text>
+            <Text style={isDarkmode ? darkStyles.timeText : styles.timeText}>{`${new Date(
+              item.timestamp
+            ).toLocaleString()}`}</Text>
           </View>
         )}
         style={{ flex: 1, backgroundColor: isDarkmode ? '#000000' : '#ffffff' }}
@@ -46,7 +52,10 @@ export default function Chat({ navigation }) {
           onSubmitEditing={sendMessage}
           returnKeyType="send"
         />
-        <TouchableOpacity onPress={sendMessage} style={isDarkmode ? darkStyles.sendButton : styles.sendButton}>
+        <TouchableOpacity
+          onPress={sendMessage}
+          style={isDarkmode ? darkStyles.sendButton : styles.sendButton}
+        >
           <Text style={isDarkmode ? darkStyles.sendButtonText : styles.sendButtonText}>Send</Text>
         </TouchableOpacity>
       </View>
@@ -84,7 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 16, // Example font size
   },
   messageText: {
-    color: '#000000'
+    color: '#000000',
   },
   senderText: {
     color: '#000000',
@@ -94,7 +103,7 @@ const styles = StyleSheet.create({
     color: '#000000',
     fontSize: 12,
     fontStyle: 'italic',
-  }
+  },
 });
 
 const darkStyles = StyleSheet.create({
@@ -131,7 +140,7 @@ const darkStyles = StyleSheet.create({
     fontSize: 16,
   },
   messageText: {
-    color: '#ffffff'
+    color: '#ffffff',
   },
   senderText: {
     color: '#ffffff',
@@ -141,5 +150,5 @@ const darkStyles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 12,
     fontStyle: 'italic',
-  }
+  },
 });

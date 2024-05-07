@@ -3,8 +3,6 @@ import { View } from 'react-native'; // Import Image
 import { Layout, Button, Section, SectionContent, useTheme } from 'react-native-rapi-ui';
 import { Text, StyleSheet, ImageBackground } from 'react-native';
 
-
-
 const FancyTitle = ({ title }) => {
   return (
     <View style={styles.container}>
@@ -87,5 +85,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0,0,0,0.5)', // optional overlay to make text more readable
     justifyContent: 'center',
     alignItems: 'center',
-  }
+  },
 });

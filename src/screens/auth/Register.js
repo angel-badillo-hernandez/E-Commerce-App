@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { ScrollView, TouchableOpacity, View, KeyboardAvoidingView, Image } from 'react-native';
-// import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { Layout, Text, TextInput, Button, useTheme, themeColor } from 'react-native-rapi-ui';
-import { login, register } from '../../api/AwesomeStoreServices'
+import { login, register } from '../../api/AwesomeStoreServices';
 
 export default function ({ navigation }) {
   const { isDarkmode, setTheme } = useTheme();
-  // const auth = getAuth();
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
@@ -44,26 +42,26 @@ export default function ({ navigation }) {
       return;
     }
     // Try to register
-    await register(firstName, lastName, username, email, password).then((response) => {
-      // If registration is not successful, show alert
-      if (!response.success) {
-        throw Error(`Registration failed. ${response.detail}.`)
-      }
-      // If successful, go to Search screen?
-      else {
-        navigation.navigate("Search")
-      }
-      setLoading(false);
-    }).catch(function (
-      error
-    ) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ...
-      setLoading(false);
-      alert(errorMessage);
-    });
+    await register(firstName, lastName, username, email, password)
+      .then((response) => {
+        // If registration is not successful, show alert
+        if (!response.success) {
+          throw Error(`Registration failed. ${response.detail}.`);
+        }
+        // If successful, go to Search screen?
+        else {
+          navigation.navigate('Search');
+        }
+        setLoading(false);
+      })
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        // ...
+        setLoading(false);
+        alert(errorMessage);
+      });
   }
 
   return (
