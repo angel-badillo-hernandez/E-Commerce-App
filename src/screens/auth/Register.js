@@ -50,7 +50,7 @@ export default function ({ navigation }) {
         }
         // If successful, go to Search screen?
         else {
-          navigation.navigate('Search');
+          navigation.navigate('Login');
         }
         setLoading(false);
       })
