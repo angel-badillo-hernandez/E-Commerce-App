@@ -6,25 +6,23 @@
 
 This assignment was to present over our final version of the app and API with all the required functionality.
 
-### App
-[Awesome Store App Files](https://github.com/It-Is-Legend27/4443-5373-A05/tree/main/src)
+### THE MOST AWESOMEST APP EVER
 
-### Files
+## Files
 
-|   #   | File                                                       | Description                                              |
-| :---: | ---------------------------------------------------------- | -------------------------------------------------------- |
-|   1   | [api.py](./api.py)                                         | Awesome Store API made with FastAPI.                     |
-|   2   | [loadMongo.py](./loadMongo.py)                             | Script for loading JSON data into database.              |
-|   3   | [store_database.py](store_database.py)                     | Wrapper class for CRUD operations on the database.       |
-|   4   | [categoryJson](./categoryJson)                             | Contains JSON files with candy information.              |
-|   5   | [requirements.txt](./requirements.txt)                     | Lists all the required packages needed for the project.  |
-|   6   | [static/assets](./static/assets)                           | Contains static files used in the API.                   |
-|   7   | [addData.py](./addData.py)                                 | Script for loading JSON data into database.              |
-|   8   | [collection_validators.json](./collection_validators.json) | JSON file for validators / schema for collections.       |
-|   9   | [locations.json](./locations.json)                         | JSON file with user locations.                           |
-|  10   | [models.py](./models.py)                                   | Contains derived classes of BaseModel for response data. |
-|  11   | [movies.json](./movies.json)                               | JSON file with generated movie information.              |
-|  12   | [user.json](./users.json)                                  | JSON file with generated user information.               |
+|   #   | File                                                         | Description                                                |
+| :---: | ------------------------------------------------------------ | ---------------------------------------------------------- |
+|   1   | [App.js](./App.js)                                           | Main application file.                                     |
+|   3   | [assets](./assets)                                           | Directory for media such as images, etc.                   |
+|   6   | [AwesomeStoreServices.js](./src/api/AwesomeStoreServices.js) | Contains functions for interacting with Awesome Store API. |
+|   7   | [AppNavigator.js](./src/navigation/AppNavigator.js)          | Handles the navigation in the app.                         |
+|   8   | [Home.js](./src/screens/Home.js)                             | Contains the Home screen of the app.                       |
+|   9   | [Chat.js](./src/screens/Chat.js)                             | Contains the Chat screen of the app.                       |
+|  10   | [Map.js](./src/screens/Map.js)                               | Contains the Map screen of the app.                        |
+|  11   | [Search.js](./src/screens/Search.js)                         | Contains the Search screen of the app.                     |
+|  12   | [Upload.js](./src/screens/Upload.js)                         | Contains the Upload screen of the app.                     |
+|  13   | [Login.js](.src\screens\auth\Login.js)                       | Contains the Login screen of the app.                      |
+|  14   | [Register.js](.src\screens\auth\Register.js)                 | Contains the Register screen of the app.                   |
 
 ### Instructions
 
