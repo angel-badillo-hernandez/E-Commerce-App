@@ -15,7 +15,7 @@ This assignment was to present over our final version of the app and API with al
 |   #   | File                                                         | Description                                                |
 | :---: | ------------------------------------------------------------ | ---------------------------------------------------------- |
 |   1   | [App.js](./App.js)                                           | Main application file.                                     |
-|   2   | [assets](./assets)                                           | Directory for media such as images, etc.                   |
+|   2   | [Assets](./assets)                                           | Directory for media such as images, etc.                   |
 |   3   | [AwesomeStoreServices.js](./src/api/AwesomeStoreServices.js) | Contains functions for interacting with Awesome Store API. |
 |   4   | [AppNavigator.js](./src/navigation/AppNavigator.js)          | Handles the navigation in the app.                         |
 |   5   | [Home.js](./src/screens/Home.js)                             | Contains the Home screen of the app.                       |
