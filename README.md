@@ -6,8 +6,6 @@
 
 This assignment was to present over our final version of the app and API with all the required functionality.
 
-### THE MOST AWESOMEST APP EVER
-
 ## Files
 
 ## Files
