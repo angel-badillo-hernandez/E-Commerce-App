@@ -46,7 +46,7 @@ source .venv/bin/activate
 python api.py
 ```
 
-- Go to https://thehonoredone.live:8085
+- Go to localhost:8085
 
 #### Awesome Store React Native App
 - First, ensure all required packages are installed with some package manager, for example:
